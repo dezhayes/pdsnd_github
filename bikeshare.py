@@ -2,9 +2,9 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = { 'chicago': 'data/chicago.csv',
+              'new york city': 'data/new_york_city.csv',
+              'washington': 'data/washington.csv' }
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -300,7 +300,7 @@ def output_control(df):
 
     print('Would you like to view the raw data?')
     user_input = input('- "Yes" to Display raw data [Default No]:')  
-    if user_input[0].upper() == 'Y':
+    if len(user_input) > 0 and user_input[0].upper() == 'Y':
         print('\nTruncate data output?')
         user_input = input('- Rows of data to display [Default 10]:')
     
@@ -334,7 +334,7 @@ def main():
         output_control(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart[0].upper() != 'Y':
+        if len(restart) == 0 or restart[0].upper() != 'Y':
             break
 
 
