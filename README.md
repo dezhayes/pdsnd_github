@@ -1,15 +1,21 @@
 ### Date created
-Include the date you created this project and README file.
+
+November 18, 2018
 
 ### Project Title
-Replace the Project Title
+
+Programming For Data Science Nano Degree Bike Share Python Project
 
 ### Description
-Describe what your project is about and what it does
+
+A python script using NumPy and Pandas to calculate various statistics from data made available by a bike share company.
 
 ### Files used
-Include the files used
+
+bikeshare.py 
+data/*.csv [ignored]
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+
+Forked from: https://github.com/udacity/pdsnd_github
 
