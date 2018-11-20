@@ -1,4 +1,4 @@
-### Date created
+#### Date created
 
 November 18, 2018
 
@@ -6,37 +6,26 @@ November 18, 2018
 
 Programming For Data Science Nano Degree Bike Share Python Project
 
-### Description
+#### Description
 
 A python script using NumPy and Pandas to calculate various statistics from data made available by a bike share company.
 
 A python script using NumPy and Pandas to calculate various statistics from data made available by a bike share company.
 
-### Files used
+#### Files used
 
-#### Python
+##### Python
 
-##### Files Located
-/.
+- **Files Located:** /.
+- Required Libraries: Pandas, Numpy
+- Files: bikeshare.py 
 
-##### Required Libraries
+##### Data
 
-Pandas, Numpy
+- **Files Located:** /data [Ignored]
+- Files: *.csv
 
-##### Files
-
-bikeshare.py 
-
-#### Data
-
-##### Files Located
-/data [Ignored]
-
-##### Files
-
-*.csv
-
-### Credits
+#### Credits
 
 Forked from: https://github.com/udacity/pdsnd_github
 
