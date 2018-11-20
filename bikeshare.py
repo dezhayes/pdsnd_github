@@ -2,9 +2,10 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = { 'CHI': {'NAME': 'Chicago', 'DATA': 'data/chicago.csv'},
+              'NYC': {'NAME': 'New York City', 'DATA': 'data/new_york_city.csv'},
+              'WDC': {'NAME': 'Washington', 'DATA': 'data/washington.csv' }
+}
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -26,7 +27,6 @@ def get_filters(city = '', month = '', day = ''):
     print('At any prompt you may enter [restart] to restart')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while city == '':
-        allowed_cities = {'CHI': 'Chicago', 'NYC': 'New York City', 'WDC': 'Washington'}
         user_input = input('What city would you like to analyze? [CHI, NYC, WDC].\n').upper()
 
         if user_input == 'RESTART':
@@ -34,8 +34,8 @@ def get_filters(city = '', month = '', day = ''):
 
         city = ''
 
-        if user_input in allowed_cities:
-            city = allowed_cities[user_input]
+        if user_input in CITY_DATA:
+            city = user_input
         else:
             print("\n\nPlease enter a valid city.")
 
@@ -106,7 +106,7 @@ def get_filters(city = '', month = '', day = ''):
 
 
     print('-'*40)
-    print('\nYou selected: City: {}, Month: {}, Day: {}\n'.format(city, month, day))
+    print('\nYou selected: City: {}, Month: {}, Day: {}\n'.format(CITY_DATA[city]['NAME'].title(), month, day))
     print('-'*40)
 
 
@@ -126,14 +126,16 @@ def load_data(city, month, day):
     """
 
     print('\nGathering data...')
-    city = city.lower()
+
+    # clean the input data
+    city = city.upper()
     month = month.lower()
     day = day.lower()
 
-    df = pd.read_csv(CITY_DATA[city])
+    # load the appropriate csv file and handle NaNs
+    df = pd.read_csv(CITY_DATA[city]['DATA'])
     df.fillna(0)
 
-    
     # convert the Start and End Time columns to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['End Time'] = pd.to_datetime(df['End Time'])
@@ -141,7 +143,6 @@ def load_data(city, month, day):
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday
-
 
     # filter by month if applicable
     if month != 'all':
@@ -191,7 +192,6 @@ def time_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     input('\nEnter to continue...')
-
 
 
 def station_stats(df):
@@ -296,11 +296,11 @@ def user_stats(df):
     input('\nEnter to continue...')
 
 def output_control(df):
-    output_display = 5
+    output_display = 10
 
     print('Would you like to view the raw data?')
     user_input = input('- "Yes" to Display raw data [Default No]:')  
-    if user_input[0].upper() == 'Y':
+    if len(user_input) > 0 and user_input[0].upper() == 'Y':
         print('\nTruncate data output?')
         user_input = input('- Rows of data to display [Default 10]:')
     
@@ -320,7 +320,6 @@ def output_control(df):
         print(df)
 
 
-
 def main():
     while True:
         df = ''
@@ -334,7 +333,7 @@ def main():
         output_control(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart[0].upper() != 'Y':
+        if len(restart) == 0 or restart[0].upper() != 'Y':
             break
 
 
